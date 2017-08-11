@@ -50,6 +50,24 @@ app.get('/books/:bookId/:key', (req, res) => {
     res.end(respText);
 });
 
+app.get('/',
+    (req, res, next) => {
+        console.log('first');
+        req.message = 'hello';
+        next();
+    },
+    (req, res, next) => {
+        console.log('second');
+        req.message += ' there';
+        next();
+    },
+    (req, res, next) => {
+        console.log('third');
+        res.end(req.message);
+        next();
+    }
+);
+
 app.listen(3456, () => {
     console.log('listening on 3456! *BOOM*');
 })
